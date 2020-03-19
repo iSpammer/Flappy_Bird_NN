@@ -95,7 +95,6 @@ def main(genomes, config):
         add_pipe = False
         for pipe in pipes:
             pipe.move()
-            # check for collision
             for bird in birds:
                 if pipe.collide(bird):
                     ge[birds.index(bird)].fitness -= 1
@@ -112,7 +111,6 @@ def main(genomes, config):
 
         if add_pipe:
             score += 1
-            # can add this line to give more reward for passing through a pipe (not required)
             for genome in ge:
                 genome.fitness += 5
             pipes.append(Pipe(WIN_WIDTH))
