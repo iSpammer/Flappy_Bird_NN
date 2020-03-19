@@ -75,19 +75,18 @@ def main(genomes, config):
         pipe_ind = 0
         if len(birds) > 0:
             if len(pipes) > 1 and birds[0].x > pipes[0].x + pipes[
-                0].PIPE_TOP.get_width():  # determine whether to use the first or second
-                pipe_ind = 1  # pipe on the screen for neural network input
-
-        for x, bird in enumerate(birds):  # give each bird a fitness of 0.1 for each frame it stays alive
+                0].PIPE_TOP.get_width():  
+                pipe_ind = 1  
+                
+        for x, bird in enumerate(birds): 
             ge[x].fitness += 0.1
             bird.move()
 
-            # send bird location, top pipe location and bottom pipe location and determine from network whether to jump or not
             output = nets[birds.index(bird)].activate(
                 (bird.y, abs(bird.y - pipes[pipe_ind].height), abs(bird.y - pipes[pipe_ind].bottom)))
 
             if output[
-                0] > 0.5:  # we use a tanh activation function so result will be between -1 and 1. if over 0.5 jump
+                0] > 0.5:  
                 bird.jump()
 
         base.move()
